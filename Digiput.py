@@ -19,7 +19,7 @@ def fetch_data_from_api(api_url):
 api_url = "https://digimoncard.io/api-public/getAllCards.php?sort=name&series=Digimon%20Card%20Game&sortdirection=asc"
 data = fetch_data_from_api(api_url)
 # There are over 2000 digimon so I had to lower the number pulled. For the other APIs I just pulled from smaller pools for this one, they
-# only had the option to either select one or all the cards from the api url.
+# only had the option to either select one or all the cards from the api url. I also found the enumerate() function that allows me to list of tuples which helped me see what I was pulling in early stages
 if data:
     for i, item in enumerate(data[:33]):
         monster_data = {
