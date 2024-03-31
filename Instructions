@@ -1,0 +1,8 @@
+#Rules:
+#hello! Thank you for checking out my API project. My goal is to have 3 different sources for a game of essentially rock paper scizzors
+#in this I pull from multiple card games being Yugioh, pokemon and digimon.
+#I put them into my own API and then I use a get function with a random number to pull a random card. It will work similar to rock paper scizzors where Pokemon beats Yugioh, Yugioh beats Digimon, and Digimon beats Pokemon.
+#If you pull two cards from the same game you simply play the game as it was intended to be played
+#More details will be provided in my paper associated with this project which I will publish along this in my git hub branch
+#But you simpy run the Main first, then Digiput, then Yugiput and finally Pokeput.
+#after those you use the get.py and you should be off to the races!
