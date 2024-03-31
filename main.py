@@ -1,9 +1,3 @@
-# import subprocess
-
-# Run the pip install command
-# subprocess.run(["pip", "install", "-r", "requirements.txt"])
-
-# Your main script code goes here
 # Import Dependencies
 from flask import Flask
 from flask_restful import Api, Resource, reqparse, abort, fields, marshal_with
