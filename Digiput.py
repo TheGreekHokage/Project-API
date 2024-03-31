@@ -1,49 +1,40 @@
-import pandas as pd
 import requests
 from sympy import *
 
-api_url = "https://digimoncard.io/api-public/getAllCards.php?sort=name&series=Digimon%20Card%20Game&sortdirection=asc"
 BASE = "http://127.0.0.1:5000/"
 APP_VERSION = "v1/"
 
 
-# Define fetch_data_from_api function if not already defined
-def fetch_data_from_api(url):
+def fetch_data_from_api(api_url):
     try:
-        response = requests.get(url)
-        if response.status_code == 200:
-            return response.json()
-        else:
-            return None
-    except Exception as e:
-        print("Error fetching data from API:", e)
+        response = requests.get(api_url)
+        response.raise_for_status()
+        data = response.json()
+        return data
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching data from API: {e}")
         return None
 
 
+api_url = "https://digimoncard.io/api-public/getAllCards.php?sort=name&series=Digimon%20Card%20Game&sortdirection=asc"
 data = fetch_data_from_api(api_url)
-
+# There are over 2000 digimon so I had to lower the number pulled. For the other APIs I just pulled from smaller pools for this one, they
+# only had the option to either select one or all the cards from the api url.
 if data:
-    # Process fetched data
-    for i, item in enumerate(
-        data[:33]
-    ):  # Limiting to the first 33 items, consider removing this limit
+    for i, item in enumerate(data[:33]):
         monster_data = {
             "id": item["cardnumber"],
             "attack": 0,
             "name": item["name"],
             "hp": 0,
         }
-        # Send processed data to another endpoint for storage
-        try:
-            response = requests.put(
-                BASE + APP_VERSION + "monster/" + str(i), json=monster_data
-            )
-            print(response.json())  # Print response from storage endpoint
-        except Exception as e:
-            print("Error storing data:", e)
+        response = requests.put(
+            BASE + APP_VERSION + "monster/" + str(i), json=monster_data
+        )  # Using json parameter to send JSON data
+        print(response.json())
 else:
     print("Failed to fetch data from API")
 
-# Fetch data for monster 2000
+# Since over 2000 cards in this API I will test the 2000s
 response = requests.get(BASE + APP_VERSION + "monster/2000")
 print(response.json())
